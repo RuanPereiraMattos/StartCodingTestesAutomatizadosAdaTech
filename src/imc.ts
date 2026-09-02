@@ -1,5 +1,7 @@
 export function calcularIMC(peso: number, altura: number): number {
-  return peso / (altura * altura);
+  const imc = peso / (altura * altura);
+  
+  return Number(imc.toFixed(2));
 }
 
 export function classificarIMC(imc: number): string {
