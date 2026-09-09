@@ -36,11 +36,34 @@ describe('imc', () => {
 
             //act
             const result = classificarIMC(imc)
-            console.log(result)
+         
             
             //assert
             expect(result).toBe('Abaixo do peso')
 
+        })
+        it('should return "Peso normal"', () => {
+            //arrange
+            const imc = 24
+
+            //act
+            const result = classificarIMC(imc)
+       
+            
+            //assert
+            expect(result).toBe('Peso normal')
+
+        })
+        it('should return "Sobrepeso"',() => {
+            //arrange
+            const imc = 28.65
+
+            //act
+            const result = classificarIMC(imc)
+           
+            
+            //assert
+            expect(result).toBe('Sobrepeso')
         })
     })
     

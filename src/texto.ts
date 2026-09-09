@@ -3,7 +3,8 @@ export function inverterTexto(texto: string): string {
 }
 
 export function contarVogais(texto: string): number {
-  return texto.split("").filter((letra) => "aeiouAEIOU".includes(letra)).length;
+  const normalize = texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  return normalize.split("").filter((letra) => "aeiouAEIOU".includes(letra)).length;
 }
 
 export function capitalize(texto: string): string {
