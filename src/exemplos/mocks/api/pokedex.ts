@@ -9,7 +9,7 @@ export interface FichaPokemon {
 export async function montarFicha(nome: string): Promise<FichaPokemon> {
   const pokemon: Pokemon = await buscarPokemon(nome);
 
-  console.log('mock -> ', pokemon)
+  console.log('mock ---> ', pokemon)
 
   return {
     titulo: `#${pokemon.id} ${pokemon.nome.toUpperCase()}`,

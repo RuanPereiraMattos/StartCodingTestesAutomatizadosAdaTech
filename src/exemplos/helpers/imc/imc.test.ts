@@ -28,10 +28,8 @@ describe('imc', () => {
     })
 
     describe('classificarIMC', () => {
-        it('should return "Abaixo do peso"', () => {
+        it('should return "Abaixo do peso" if imc is under than 18.5 ', () => {
             //arrange
-            const altura = 2
-            const peso = 70
             const imc = calcularIMC(2, 70)
 
             //act
