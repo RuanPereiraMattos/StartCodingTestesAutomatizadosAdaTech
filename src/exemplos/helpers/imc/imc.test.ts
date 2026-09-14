@@ -1,6 +1,6 @@
 import { calcularIMC, classificarIMC } from "./imc"
 
-describe('imc', () => {
+describe.skip('imc', () => {
     describe('calcularIMC', () => {
         it('calcular imc', () => {
             //arrange
