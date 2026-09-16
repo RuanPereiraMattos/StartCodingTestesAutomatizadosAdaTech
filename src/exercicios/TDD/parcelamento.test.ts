@@ -117,7 +117,26 @@ describe('calcularParcelamento', () => {
         it('lança erro quando o valor da compra for zero ou negativo', () => {
             const valoresCompras : number[] = [0, -1];
             const numeroParcelas = 1;
-            valoresCompras.forEach((valorCompra: number) => expect(() => calcularParcelamento(valorCompra, numeroParcelas)).toThrow("O valor da compra não pode ser zero ou negativo"))
+            valoresCompras.forEach((valorCompra: number) => expect(() => calcularParcelamento(valorCompra, numeroParcelas)).toThrow("O valor da compra não pode ser zero ou negativo"));
         });
-    })
+    });
+
+    describe('Desafios Extras:', () => {
+        const mock: {valorCompra: number, numeroParcelas: number, valorParcela: number}[] = [
+            { valorCompra: 1000, numeroParcelas: 1, valorParcela: 1000 },
+            { valorCompra: 1000, numeroParcelas: 4, valorParcela: 250 },
+            { valorCompra: 1000, numeroParcelas: 5, valorParcela: 210 },
+            { valorCompra: 1000, numeroParcelas: 8, valorParcela: 131.25 },
+            { valorCompra: 1000, numeroParcelas: 9, valorParcela: 120 },
+            { valorCompra: 1000, numeroParcelas: 12, valorParcela: 90 },
+            { valorCompra: 1000, numeroParcelas: 13, valorParcela: 84.62 },
+            { valorCompra: 1000, numeroParcelas: 18, valorParcela: 61.11 },
+            { valorCompra: 100, numeroParcelas: 3, valorParcela: 33.33 },
+        ];
+
+        it.each(mock)("Reescrever todos os testes dos limites usando it.each com a tabela de exemplos da seção 6", ({ valorCompra, numeroParcelas, valorParcela }) => {
+            expect(calcularParcelamento(valorCompra, numeroParcelas)).toEqual({valorParcela, totalParcelas: numeroParcelas});
+        })
+    });
+
 })
