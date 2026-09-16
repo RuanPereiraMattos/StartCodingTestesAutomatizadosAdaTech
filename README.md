@@ -1,6 +1,6 @@
 # Testes Automatizados — Ada Tech
 
-Projeto de aprendizado de testes unitários automatizados com TypeScript e Vitest. Organizado em exemplos guiados e exercícios práticos com BDD.
+Projeto de aprendizado de testes unitários automatizados com TypeScript e Vitest. Organizado em exemplos guiados e exercícios práticos com BDD e TDD.
 
 ## Tecnologias
 
@@ -45,12 +45,15 @@ src/
 │       └── api/                  # Exemplo de mock de fetch (PokéAPI)
 │
 └── exercicios/
-    └── BDD/
-        ├── carrinho.ts           # Lógica de carrinho de compras
-        ├── carrinho.test.ts      # Testes BDD do carrinho
-        ├── carrinho-cenarios.md  # Especificação BDD (Dado/Quando/Então)
-        ├── cadastro.ts           # Cadastro de clientes com consulta de CEP
-        └── cadastro.test.ts      # Testes do cadastro com mocks de fetch
+    ├── BDD/
+    │   ├── carrinho.ts           # Lógica de carrinho de compras
+    │   ├── carrinho.test.ts      # Testes BDD do carrinho
+    │   ├── carrinho-cenarios.md  # Especificação BDD (Dado/Quando/Então)
+    │   ├── cadastro.ts           # Cadastro de clientes com consulta de CEP
+    │   └── cadastro.test.ts      # Testes do cadastro com mocks de fetch
+    └── TDD/
+        ├── parcelamento.ts       # Função de parcelamento com juros
+        └── parcelamento.test.ts  # Testes desenvolvidos com TDD
 ```
 
 ## Módulos
@@ -101,3 +104,22 @@ O projeto demonstra duas estratégias de mock com Vitest:
 
 - **`vi.stubGlobal`** — substituição do `fetch` global nos testes de cadastro
 - **`vi.hoisted` + `vi.mock`** — padrão para mockar módulos externos (demonstrado nos testes de Pokédex)
+
+## Abordagem TDD
+
+O exercício de parcelamento (`src/exercicios/TDD/`) é um projeto de entrega da Ada Tech construído com TDD:
+
+**Contexto:** uma loja virtual precisa calcular o parcelamento de compras em até 18x, com juros por faixa.
+
+**Regras de juros:**
+
+| Parcelas | Juros |
+|---|---|
+| 1x – 4x | Sem juros |
+| 5x – 8x | 5% |
+| 9x – 12x | 8% |
+| 13x – 18x | 10% |
+
+**Função:** `calcularParcelamento(valorCompra, numeroParcelas)` → `{ valorParcela, totalParcelas }`
+
+**Ciclo seguido:** para cada cenário — escreve o teste (RED), faz passar com o mínimo (GREEN), melhora sem quebrar (REFACTOR). Os commits evidenciam o processo.
