@@ -25,14 +25,22 @@ describe('calcularParcelamento', () => {
     describe('com juros', () => {
         it('aplica 5% sobre o total quando for de 5x a 8x', () => {
             const valorCompra = 1000;
-            const numeroParcelas = 5;
+            const numeroParcelas = 8;
             const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcelas);
             expect(resultado).toEqual({
-                valorParcela: 210,
+                valorParcela: 131.25,
                 totalParcelas: numeroParcelas
             });
         })
-        it('aplica 8% sobre o total quando for de 9x a 12x')
+        it('aplica 8% sobre o total quando for de 9x a 12x', () => {
+            const valorCompra = 1000;
+            const numeroParcelas = 9;
+            const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcelas);
+            expect(resultado).toEqual({
+                valorParcela: 120,
+                totalParcelas: numeroParcelas
+            });
+        })
         it('aplica 10% sobre o total quando for de 13x a 18x')
         it('aplica a faixa correta nos limites (4x, 5x, 8x, 9x, 12x, 13x)', () => {
             const valorCompra = 1000;
