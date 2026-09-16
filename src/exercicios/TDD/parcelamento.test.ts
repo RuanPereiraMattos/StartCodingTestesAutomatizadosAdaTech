@@ -12,7 +12,15 @@ describe('calcularParcelamento', () => {
                 totalParcelas: numeroParcelas
             });
         });
-        it('divide o valor sem juros quando for 4x');
+        it('divide o valor sem juros quando for 4x', () => {
+            const valorCompra = 1000;
+            const numeroParcelas = 4;
+            const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcelas);
+            expect(resultado).toEqual({
+                valorParcela: 250,
+                totalParcelas: numeroParcelas
+            });
+        });
     })
     describe('com juros', () => {
         it('aplica 5% sobre o total quando for de 5x a 8x')
