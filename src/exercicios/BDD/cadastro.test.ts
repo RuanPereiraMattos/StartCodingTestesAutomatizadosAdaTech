@@ -8,12 +8,26 @@ type EnderecoMock = {
   uf: string
 }
 
-function createResolveMock(responseMock: EnderecoMock) {
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => responseMock
-    }))
+type RejectMock = {
+    message: string
 }
+
+
+function responseFactory(body: unknown, { ok =  true, status = 200} = {}) {
+
+    return {
+        ok,
+        status,
+        json: async () => body
+    } as unknown as Response
+}
+
+
+function fetchMocked(reponse: Response) {
+    const fetchMock = vi.fn(async => reponse)
+    vi.stubGlobal('fetch',fetchMock)
+}
+
 
 
 
@@ -25,14 +39,17 @@ describe('function -> cadastrarCliente', () => {
     })
 
     it('deve retornar endereço valido', async () => {
+
         // Arrange
-        createResolveMock({
+        const responseMock = responseFactory({
             cep: '11111-221',
             logradouro: 'Rua da paz',
             bairro: 'Bairro de cima',
             localidade: 'Porto Alegre',
             uf: 'RS'
         })
+        fetchMocked(responseMock)
+    
       
 
         const cliente: NovoCliente = {
@@ -43,8 +60,37 @@ describe('function -> cadastrarCliente', () => {
 
         // Act
         const result = await cadastrarCliente(cliente)
-        console.log(result)
+      
 
         // Assert
+        expect(result).toStrictEqual({
+            nome: 'Bruno',
+            endereco: {
+            cep: '11111221',
+            logradouro: 'Rua da paz',
+            bairro: 'Bairro de cima',
+            cidade: 'Porto Alegre',
+            uf: 'RS'
+        }
+        })
+    })
+
+    it.only('deve retornar erro da API', async () => {
+        //Arrange
+         const responseMock = responseFactory({
+            cep: '11111-221',
+            logradouro: 'Rua da paz',
+            bairro: 'Bairro de cima',
+            localidade: 'Porto Alegre',
+            uf: 'RS'
+        }, {ok: false, status: 500})
+        fetchMocked(responseMock)
+    
+        const cliente = {
+            nome: 'John',
+            cep: '11111221'
+        };
+
+       
     })
 })

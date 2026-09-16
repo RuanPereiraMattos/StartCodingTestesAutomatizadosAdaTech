@@ -56,6 +56,7 @@ type RespostaViaCep =
 
 export async function buscarEnderecoNoViaCep(cep: string): Promise<Endereco | null> {
   const resposta = await fetch(`https://viacep.com.br/ws/${cep}/json/`)
+  console.log(resposta)
 
   if (!resposta.ok) {
     throw new Error(`ViaCEP respondeu com status ${resposta.status}`)
