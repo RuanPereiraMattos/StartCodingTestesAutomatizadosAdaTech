@@ -120,6 +120,19 @@ O exercício de parcelamento (`src/exercicios/TDD/`) é um projeto de entrega da
 | 9x – 12x | 8% |
 | 13x – 18x | 10% |
 
-**Função:** `calcularParcelamento(valorCompra, numeroParcelas)` → `{ valorParcela, totalParcelas }`
+**Função:** `calcularParcelamento(valorCompra, numeroParcelas)` → `{ valorParcela, totalParcelas, valorTotal, parcelas }`
+
+| Campo | Descrição |
+|---|---|
+| `valorParcela` | Valor base de cada parcela (arredondado para 2 casas decimais) |
+| `totalParcelas` | Número de parcelas |
+| `valorTotal` | Total da compra já com juros aplicados |
+| `parcelas` | Array com o valor de cada parcela; a primeira é ajustada para absorver diferenças de arredondamento |
 
 **Ciclo seguido:** para cada cenário — escreve o teste (RED), faz passar com o mínimo (GREEN), melhora sem quebrar (REFACTOR). Os commits evidenciam o processo.
+
+**Desafios extras implementados:**
+
+1. **Reescrita com `it.each`** — testes de limites reescritos usando tabela de dados com nomes dinâmicos
+2. **Campo `valorTotal`** — adicionado ao retorno, com o total da compra já com juros
+3. **Ajuste de arredondamento** — a primeira parcela absorve a diferença entre a soma das parcelas arredondadas e o `valorTotal`, garantindo que `sum(parcelas) === valorTotal`
