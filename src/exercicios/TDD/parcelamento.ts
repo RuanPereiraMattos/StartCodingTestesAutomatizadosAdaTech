@@ -8,6 +8,8 @@ export function calcularParcelamento(
 ): ResultadoParcelamento {
     if (numeroParcelas < 1)
         throw new Error("O número de parcelas não pode ser menor que 1");
+    if (numeroParcelas > 18)
+        throw new Error("O número de parcelas não pode ser maior que 18");
     if (numeroParcelas >= 13 && numeroParcelas <= 18) {
         const valorTotalCompra = valorCompra  * 1.10;
         const result: ResultadoParcelamento = {
