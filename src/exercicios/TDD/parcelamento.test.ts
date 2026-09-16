@@ -140,6 +140,12 @@ describe('calcularParcelamento', () => {
             });
         });
 
+        describe("Adicione o campo 'valorTotal' ao retorno, com o total da compra já com juros, guiado por novos testes", () => {
+                it.each(mock)("$numeroParcelas parcelas de R$ $valorCompra → total com juros $totalComJuros", ({ valorCompra, numeroParcelas, totalComJuros, valorParcela }) => {
+                expect(calcularParcelamento(valorCompra, numeroParcelas)).toEqual({valorParcela, totalParcelas: numeroParcelas, valorTotal: totalComJuros});
+            });
+        });
+        
     });
 
 })
