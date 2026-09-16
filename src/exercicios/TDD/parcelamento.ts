@@ -6,6 +6,8 @@ export function calcularParcelamento(
     valorCompra: number,
     numeroParcelas: number
 ): ResultadoParcelamento {
+    if (!Number.isInteger(numeroParcelas))
+        throw new Error("O número de parcelas tem que ser um número inteiro");
     if (numeroParcelas < 1)
         throw new Error("O número de parcelas não pode ser menor que 1");
     if (numeroParcelas > 18)
