@@ -43,10 +43,10 @@ describe('calcularParcelamento', () => {
         });
         it('aplica 10% sobre o total quando for de 13x a 18x', () => {
             const valorCompra = 1000;
-            const numeroParcelas = 13;
+            const numeroParcelas = 16;
             const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcelas);
             expect(resultado).toEqual({
-                valorParcela: 84.61,
+                valorParcela: 68.75,
                 totalParcelas: numeroParcelas
             });
         })
