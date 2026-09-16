@@ -67,12 +67,20 @@ describe('calcularParcelamento', () => {
                     totalParcelas: numeroParcela
                 });
             });
-        })
+        });
     })
-    describe.skip('arredondamento', () => {
-        it('arredonda o valor da parcela para 2 casas decimais')
+    describe('arredondamento', () => {
+        it('arredonda o valor da parcela para 2 casas decimais', () => {
+            const valorCompra = 1000;
+            const numeroParcelas = 13;
+            const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcelas);
+            expect(resultado).toEqual({
+                valorParcela: 84.61,
+                totalParcelas: numeroParcelas
+            })
+        });
     })
-    describe.skip('validações', () => {
+    describe('validações', () => {
         it('lança erro quando o número de parcelas for menor que 1')
         it('lança erro quando o número de parcelas for maior que 18')
         it('lança erro quando o número de parcelas não for inteiro')
