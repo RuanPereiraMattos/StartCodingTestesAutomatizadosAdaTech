@@ -109,7 +109,11 @@ describe('calcularParcelamento', () => {
             const numeroParcelas = 19;
             expect(() => calcularParcelamento(valorCompra, numeroParcelas)).toThrow("O número de parcelas não pode ser maior que 18");
         });
-        it('lança erro quando o número de parcelas não for inteiro')
+        it('lança erro quando o número de parcelas não for inteiro', () => {
+            const valorCompra = 1000;
+            const numeroParcelas = 1.1;
+            expect(() => calcularParcelamento(valorCompra, numeroParcelas)).toThrow("O número de parcelas tem que ser um número inteiro");
+        })
         it('lança erro quando o valor da compra for zero ou negativo')
     })
 })
