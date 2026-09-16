@@ -113,7 +113,11 @@ describe('calcularParcelamento', () => {
             const valorCompra = 1000;
             const numeroParcelas = 1.1;
             expect(() => calcularParcelamento(valorCompra, numeroParcelas)).toThrow("O número de parcelas tem que ser um número inteiro");
-        })
-        it('lança erro quando o valor da compra for zero ou negativo')
+        });
+        it('lança erro quando o valor da compra for zero ou negativo', () => {
+            const valoresCompras : number[] = [0, -1];
+            const numeroParcelas = 1;
+            valoresCompras.forEach((valorCompra: number) => expect(() => calcularParcelamento(valorCompra, numeroParcelas)).toThrow("O valor da compra não pode ser zero ou negativo"))
+        });
     })
 })
