@@ -146,6 +146,15 @@ describe('calcularParcelamento', () => {
             });
         });
         
+        describe("Arredondamento quando divisão de valor total com parcelas dá valor quebrado", () => {
+            it("Eg.: 100 / 3 = 33.33 * 3 = 99.99", () => {
+                expect(calcularParcelamento(100, 3)).toMatchObject({
+                    valorParcela: 33.33,
+                    totalParcelas: 3,
+                    parcelas: [33.34, 33.33, 33.33]
+                });
+            });
+        });
     });
 
 })
