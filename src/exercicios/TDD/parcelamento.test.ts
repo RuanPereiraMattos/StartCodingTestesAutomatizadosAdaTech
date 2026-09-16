@@ -69,10 +69,10 @@ describe('calcularParcelamento', () => {
             });
         })
     })
-    describe('arredondamento', () => {
+    describe.skip('arredondamento', () => {
         it('arredonda o valor da parcela para 2 casas decimais')
     })
-    describe('validações', () => {
+    describe.skip('validações', () => {
         it('lança erro quando o número de parcelas for menor que 1')
         it('lança erro quando o número de parcelas for maior que 18')
         it('lança erro quando o número de parcelas não for inteiro')
