@@ -6,5 +6,9 @@ export function calcularParcelamento(
     valorCompra: number,
     numeroParcelas: number
 ): ResultadoParcelamento {
-    throw new Error('Não implementado');
+    const result: ResultadoParcelamento = {
+        valorParcela: valorCompra / numeroParcelas,
+        totalParcelas: numeroParcelas
+    }
+    return result;
 }
