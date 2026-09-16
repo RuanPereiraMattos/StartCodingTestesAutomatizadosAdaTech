@@ -7,7 +7,7 @@ describe('calcularParcelamento', () => {
             const valorCompra = 1000;
             const numeroParcelas = 1;
             const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcelas);
-            expect(resultado).toEqual({
+            expect(resultado).toMatchObject({
                 valorParcela: valorCompra,
                 totalParcelas: numeroParcelas
             });
@@ -16,7 +16,7 @@ describe('calcularParcelamento', () => {
             const valorCompra = 1000;
             const numeroParcelas = 4;
             const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcelas);
-            expect(resultado).toEqual({
+            expect(resultado).toMatchObject({
                 valorParcela: 250,
                 totalParcelas: numeroParcelas
             });
@@ -27,7 +27,7 @@ describe('calcularParcelamento', () => {
             const valorCompra = 1000;
             const numeroParcelas = 8;
             const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcelas);
-            expect(resultado).toEqual({
+            expect(resultado).toMatchObject({
                 valorParcela: 131.25,
                 totalParcelas: numeroParcelas
             });
@@ -36,7 +36,7 @@ describe('calcularParcelamento', () => {
             const valorCompra = 1000;
             const numeroParcelas = 9;
             const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcelas);
-            expect(resultado).toEqual({
+            expect(resultado).toMatchObject({
                 valorParcela: 120,
                 totalParcelas: numeroParcelas
             });
@@ -45,7 +45,7 @@ describe('calcularParcelamento', () => {
             const valorCompra = 1000;
             const numeroParcelas = 16;
             const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcelas);
-            expect(resultado).toEqual({
+            expect(resultado).toMatchObject({
                 valorParcela: 68.75,
                 totalParcelas: numeroParcelas
             });
@@ -62,7 +62,7 @@ describe('calcularParcelamento', () => {
             ];
             numeroParcelas.forEach(({ numeroParcela, valorParcela }) => {
                 const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcela);
-                expect(resultado).toEqual({
+                expect(resultado).toMatchObject({
                     valorParcela,
                     totalParcelas: numeroParcela
                 });
@@ -72,26 +72,26 @@ describe('calcularParcelamento', () => {
     describe('arredondamento', () => {
         it('arredonda o valor da parcela para 2 casas decimais', () => {
             const valorCompra = 1000;
-            const numeroParcelas: {numeroParcela:number, valorParcela: number}[] = [
-                { numeroParcela: 4,  valorParcela: 250 },
-                { numeroParcela: 5,  valorParcela: 210 },
-                { numeroParcela: 6,  valorParcela: 175 },
-                { numeroParcela: 7,  valorParcela: 150 },
-                { numeroParcela: 8,  valorParcela: 131.25 },
-                { numeroParcela: 9,  valorParcela: 120 },
-                { numeroParcela: 10,  valorParcela: 108 },
-                { numeroParcela: 11,  valorParcela: 98.18 },
-                { numeroParcela: 12, valorParcela: 90 },
-                { numeroParcela: 13, valorParcela: 84.62 },
-                { numeroParcela: 14, valorParcela: 78.57 },
-                { numeroParcela: 15, valorParcela: 73.33 },
-                { numeroParcela: 16, valorParcela: 68.75 },
-                { numeroParcela: 17, valorParcela: 64.71 },
-                { numeroParcela: 18, valorParcela: 61.11 }
+            const numeroParcelas: { numeroParcela:number, valorParcela: number, valorTotal: number }[] = [
+                { numeroParcela: 4,  valorParcela: 250, valorTotal: 1000 },
+                { numeroParcela: 5,  valorParcela: 210, valorTotal: 1050 },
+                { numeroParcela: 6,  valorParcela: 175, valorTotal: 1050 },
+                { numeroParcela: 7,  valorParcela: 150, valorTotal: 1050 },
+                { numeroParcela: 8,  valorParcela: 131.25, valorTotal: 1050 },
+                { numeroParcela: 9,  valorParcela: 120, valorTotal: 1080 },
+                { numeroParcela: 10,  valorParcela: 108, valorTotal: 1080 },
+                { numeroParcela: 11,  valorParcela: 98.18, valorTotal: 1080 },
+                { numeroParcela: 12, valorParcela: 90, valorTotal: 1080 },
+                { numeroParcela: 13, valorParcela: 84.62, valorTotal: 1100 },
+                { numeroParcela: 14, valorParcela: 78.57, valorTotal: 1100 },
+                { numeroParcela: 15, valorParcela: 73.33, valorTotal: 1100 },
+                { numeroParcela: 16, valorParcela: 68.75, valorTotal: 1100 },
+                { numeroParcela: 17, valorParcela: 64.71, valorTotal: 1100 },
+                { numeroParcela: 18, valorParcela: 61.11, valorTotal: 1100 }
             ]
-            numeroParcelas.forEach(({ numeroParcela, valorParcela }) => {
+            numeroParcelas.forEach(({ numeroParcela, valorParcela, valorTotal }) => {
                 const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcela);
-                expect(resultado).toEqual({
+                expect(resultado).toMatchObject({
                     valorParcela,
                     totalParcelas: numeroParcela
                 });
@@ -122,7 +122,7 @@ describe('calcularParcelamento', () => {
     });
 
     describe('Desafios Extras:', () => {
-        const mock: {valorCompra: number, numeroParcelas: number, totalComJuros: number, valorParcela: number}[] = [
+        const mock: { valorCompra: number, numeroParcelas: number, totalComJuros: number, valorParcela: number }[] = [
             { valorCompra: 1000, numeroParcelas: 1, totalComJuros: 1000, valorParcela: 1000 },
             { valorCompra: 1000, numeroParcelas: 4, totalComJuros: 1000, valorParcela: 250 },
             { valorCompra: 1000, numeroParcelas: 5, totalComJuros: 1050, valorParcela: 210 },
@@ -136,7 +136,7 @@ describe('calcularParcelamento', () => {
 
         describe("Reescrever todos os testes dos limites usando it.each com a tabela de exemplos da seção 6", () => {
             it.each(mock)("$numeroParcelas parcelas de R$ $valorCompra -> parcela $valorParcela", ({ valorCompra, numeroParcelas, valorParcela }) => {
-                expect(calcularParcelamento(valorCompra, numeroParcelas)).toEqual({valorParcela, totalParcelas: numeroParcelas});
+                expect(calcularParcelamento(valorCompra, numeroParcelas)).toMatchObject({valorParcela, totalParcelas: numeroParcelas});
             });
         });
 

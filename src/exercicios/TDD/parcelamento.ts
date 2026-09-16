@@ -1,6 +1,7 @@
 export type ResultadoParcelamento = {
     valorParcela: number
     totalParcelas: number
+    valorTotal?: number
 }
 export function calcularParcelamento(
     valorCompra: number,
@@ -18,7 +19,8 @@ export function calcularParcelamento(
         const valorTotalCompra = valorCompra  * 1.10;
         const result: ResultadoParcelamento = {
             valorParcela: parseFloat((valorTotalCompra / numeroParcelas).toFixed(2)),
-            totalParcelas: numeroParcelas
+            totalParcelas: numeroParcelas,
+            valorTotal: valorTotalCompra
         }
         return result;
     }
@@ -26,7 +28,8 @@ export function calcularParcelamento(
         const valorTotalCompra = valorCompra  * 1.08;
         const result: ResultadoParcelamento = {
             valorParcela: parseFloat((valorTotalCompra / numeroParcelas).toFixed(2)),
-            totalParcelas: numeroParcelas
+            totalParcelas: numeroParcelas,
+            valorTotal: valorTotalCompra
         }
         return result;
     }
@@ -34,13 +37,15 @@ export function calcularParcelamento(
         const valorTotalCompra = valorCompra  * 1.05;
         const result: ResultadoParcelamento = {
             valorParcela: parseFloat((valorTotalCompra / numeroParcelas).toFixed(2)),
-            totalParcelas: numeroParcelas
+            totalParcelas: numeroParcelas,
+            valorTotal: valorTotalCompra
         }
         return result;
     }
     const result: ResultadoParcelamento = {
         valorParcela: parseFloat((valorCompra / numeroParcelas).toFixed(2)),
-        totalParcelas: numeroParcelas
+        totalParcelas: numeroParcelas,
+        valorTotal: valorCompra
     }
     return result;
 }
