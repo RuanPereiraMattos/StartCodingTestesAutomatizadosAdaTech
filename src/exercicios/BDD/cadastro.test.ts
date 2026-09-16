@@ -1,4 +1,4 @@
-import { cadastrarCliente, NovoCliente } from "./cadastro"
+import { BuscarEndereco, buscarEnderecoNoViaCep, cadastrarCliente, NovoCliente } from "./cadastro"
 
 type EnderecoMock = {
   cep: string
@@ -38,6 +38,15 @@ describe('function -> cadastrarCliente', () => {
         vi.restoreAllMocks()
     })
 
+    it('CEP Inválido', async () => {
+        const cliente: NovoCliente = {
+            nome: "Ruan",
+            cep: "123456"
+        };
+        await expect(cadastrarCliente(cliente)).rejects.toThrow("CEP inválido");
+    });
+
+
     it('deve retornar endereço valido', async () => {
 
         // Arrange
@@ -75,7 +84,7 @@ describe('function -> cadastrarCliente', () => {
         })
     })
 
-    it.only('deve retornar erro da API', async () => {
+    it('deve retornar erro da API', async () => {
         //Arrange
          const responseMock = responseFactory({
             cep: '11111-221',
@@ -93,4 +102,35 @@ describe('function -> cadastrarCliente', () => {
 
        
     })
-})
+
+    it('CEP Não Encontrado', async () => {
+        const cliente: NovoCliente = {
+            nome: "Ruan",
+            cep: "12345678"
+        };
+        await expect(cadastrarCliente(cliente)).rejects.toThrow("CEP não encontrado");
+    });
+
+    it('Não foi possível consultar o CEP agora, tente novamente', async () => {
+        const cliente: NovoCliente = {
+            nome: "Ruan",
+            cep: "12345678"
+        };
+        const buscarEnderecoComErro: BuscarEndereco = async (cep) => {
+            throw new Error('timeout');
+        }
+
+        await expect(cadastrarCliente(cliente, buscarEnderecoComErro)).rejects.toThrow("Não foi possível consultar o CEP agora, tente novamente");
+    });
+
+});
+
+describe('Buscar Endereço no Via CEP', () => {
+
+    it("Via CEP responde com status 400", async () => {
+        //const endereco = await buscarEnderecoNoViaCep("1234567");
+        //console.log({ endereco });
+        await expect(buscarEnderecoNoViaCep("1234567")).rejects.toThrow("ViaCEP respondeu com status 400")
+    });
+
+});

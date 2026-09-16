@@ -33,9 +33,12 @@ export function aplicarCupom(
   cupom: Cupom,
   agora: Date = new Date(),
 ): Carrinho {
-  if (cupom.validoAte && agora > cupom.validoAte) {
-    throw new Error('Cupom expirado')
-  }
+
+  if (!cupom.validoAte)
+    throw new Error('Cupom precisa ter validade');
+
+  if (agora > cupom.validoAte) 
+    throw new Error('Cupom expirado');
 
   return { ...carrinho, cupom }
 }
