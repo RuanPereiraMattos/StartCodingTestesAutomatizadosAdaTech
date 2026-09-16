@@ -6,10 +6,10 @@ export function calcularParcelamento(
     valorCompra: number,
     numeroParcelas: number
 ): ResultadoParcelamento {
-    if (numeroParcelas >= 13 && numeroParcelas <= 18){
+    if (numeroParcelas >= 13 && numeroParcelas <= 18) {
         const valorTotalCompra = valorCompra  * 1.10;
         const result: ResultadoParcelamento = {
-            valorParcela: valorTotalCompra / numeroParcelas,
+            valorParcela: parseFloat((valorTotalCompra / numeroParcelas).toFixed(2)),
             totalParcelas: numeroParcelas
         }
         return result;
@@ -17,7 +17,7 @@ export function calcularParcelamento(
     if (numeroParcelas >= 9 && numeroParcelas <= 12){
         const valorTotalCompra = valorCompra  * 1.08;
         const result: ResultadoParcelamento = {
-            valorParcela: valorTotalCompra / numeroParcelas,
+            valorParcela: parseFloat((valorTotalCompra / numeroParcelas).toFixed(2)),
             totalParcelas: numeroParcelas
         }
         return result;
@@ -25,13 +25,13 @@ export function calcularParcelamento(
     if (numeroParcelas >= 5 && numeroParcelas <= 8){
         const valorTotalCompra = valorCompra  * 1.05;
         const result: ResultadoParcelamento = {
-            valorParcela: valorTotalCompra / numeroParcelas,
+            valorParcela: parseFloat((valorTotalCompra / numeroParcelas).toFixed(2)),
             totalParcelas: numeroParcelas
         }
         return result;
     }
     const result: ResultadoParcelamento = {
-        valorParcela: valorCompra / numeroParcelas,
+        valorParcela: parseFloat((valorCompra / numeroParcelas).toFixed(2)),
         totalParcelas: numeroParcelas
     }
     return result;

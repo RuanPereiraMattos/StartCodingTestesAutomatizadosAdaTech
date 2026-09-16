@@ -58,7 +58,7 @@ describe('calcularParcelamento', () => {
                 { numeroParcela: 8,  valorParcela: 131.25 },
                 { numeroParcela: 9,  valorParcela: 120 },
                 { numeroParcela: 12, valorParcela: 90 },
-                { numeroParcela: 13, valorParcela: 84.61538461538461 }
+                { numeroParcela: 13, valorParcela: 84.62 }
             ];
             numeroParcelas.forEach(({ numeroParcela, valorParcela }) => {
                 const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcela);
