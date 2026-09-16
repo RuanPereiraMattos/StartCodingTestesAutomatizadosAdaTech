@@ -6,6 +6,8 @@ export function calcularParcelamento(
     valorCompra: number,
     numeroParcelas: number
 ): ResultadoParcelamento {
+    if (valorCompra <= 0)
+        throw new Error("O valor da compra não pode ser zero ou negativo");
     if (!Number.isInteger(numeroParcelas))
         throw new Error("O número de parcelas tem que ser um número inteiro");
     if (numeroParcelas < 1)
