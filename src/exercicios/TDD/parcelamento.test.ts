@@ -72,12 +72,30 @@ describe('calcularParcelamento', () => {
     describe('arredondamento', () => {
         it('arredonda o valor da parcela para 2 casas decimais', () => {
             const valorCompra = 1000;
-            const numeroParcelas = 13;
-            const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcelas);
-            expect(resultado).toEqual({
-                valorParcela: 84.61,
-                totalParcelas: numeroParcelas
-            })
+            const numeroParcelas: {numeroParcela:number, valorParcela: number}[] = [
+                { numeroParcela: 4,  valorParcela: 250 },
+                { numeroParcela: 5,  valorParcela: 210 },
+                { numeroParcela: 6,  valorParcela: 175 },
+                { numeroParcela: 7,  valorParcela: 150 },
+                { numeroParcela: 8,  valorParcela: 131.25 },
+                { numeroParcela: 9,  valorParcela: 120 },
+                { numeroParcela: 10,  valorParcela: 108 },
+                { numeroParcela: 11,  valorParcela: 98.18 },
+                { numeroParcela: 12, valorParcela: 90 },
+                { numeroParcela: 13, valorParcela: 84.62 },
+                { numeroParcela: 14, valorParcela: 78.57 },
+                { numeroParcela: 15, valorParcela: 73.33 },
+                { numeroParcela: 16, valorParcela: 68.75 },
+                { numeroParcela: 17, valorParcela: 64.71 },
+                { numeroParcela: 18, valorParcela: 61.11 }
+            ]
+            numeroParcelas.forEach(({ numeroParcela, valorParcela }) => {
+                const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcela);
+                expect(resultado).toEqual({
+                    valorParcela,
+                    totalParcelas: numeroParcela
+                });
+            });
         });
     })
     describe('validações', () => {
