@@ -1,8 +1,17 @@
 import { describe, it } from 'vitest';
+import { calcularParcelamento, ResultadoParcelamento } from './parcelamento';
 
 describe('calcularParcelamento', () => {
     describe('sem juros (1x a 4x)', () => {
-        it('retorna o valor total em parcela única quando for 1x');
+        it('retorna o valor total em parcela única quando for 1x', () => {
+            const valorCompra = 1000;
+            const numeroParcelas = 1;
+            const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcelas);
+            expect(resultado).toEqual({
+                valorParcela: valorCompra,
+                totalParcelas: numeroParcelas
+            });
+        });
         it('divide o valor sem juros quando for 4x');
     })
     describe('com juros', () => {
