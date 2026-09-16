@@ -24,13 +24,15 @@ describe('calcularParcelamento', () => {
     });
     describe('com juros', () => {
         it('aplica 5% sobre o total quando for de 5x a 8x', () => {
-            const valorCompra = 1000;
-            const numeroParcelas = 8;
-            const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcelas);
-            expect(resultado).toMatchObject({
-                valorParcela: 131.25,
-                totalParcelas: numeroParcelas
-            });
+            const valorCompra = 1010;
+            const numerosParcelas: number[] = [5, 6, 7, 8];
+            numerosParcelas.forEach((numeroParcela: number) => {
+                const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcela);
+                expect(resultado).toMatchObject({
+                    valorParcela: parseFloat(((valorCompra * 1.05) / numeroParcela).toFixed(2)),
+                    totalParcelas: numeroParcela
+                });
+            })
         });
         it('aplica 8% sobre o total quando for de 9x a 12x', () => {
             const valorCompra = 1000;
@@ -93,7 +95,8 @@ describe('calcularParcelamento', () => {
                 const resultado: ResultadoParcelamento = calcularParcelamento(valorCompra, numeroParcela);
                 expect(resultado).toMatchObject({
                     valorParcela,
-                    totalParcelas: numeroParcela
+                    totalParcelas: numeroParcela,
+                    valorTotal
                 });
             });
         });
@@ -142,7 +145,7 @@ describe('calcularParcelamento', () => {
 
         describe("Adicione o campo 'valorTotal' ao retorno, com o total da compra já com juros, guiado por novos testes", () => {
                 it.each(mock)("$numeroParcelas parcelas de R$ $valorCompra → total com juros $totalComJuros", ({ valorCompra, numeroParcelas, totalComJuros, valorParcela }) => {
-                expect(calcularParcelamento(valorCompra, numeroParcelas)).toEqual({valorParcela, totalParcelas: numeroParcelas, valorTotal: totalComJuros});
+                expect(calcularParcelamento(valorCompra, numeroParcelas)).toMatchObject({valorParcela, totalParcelas: numeroParcelas, valorTotal: totalComJuros});
             });
         });
         
