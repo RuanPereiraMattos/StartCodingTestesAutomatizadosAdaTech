@@ -12,6 +12,15 @@ function obterFatorJuros(numeroParcelas: number): number {
     else return 1.0;
 }
 
+function gerarArrayParcelas(valorTotal: number, numeroParcelas: number): { valorParcela: number, parcelas: number[] } {
+    const valorParcela = Number.parseFloat((valorTotal / numeroParcelas).toFixed(2));
+    const parcelas = new Array(numeroParcelas).fill(valorParcela) as number[];
+    const diff = Number.parseFloat((valorTotal - valorParcela * numeroParcelas).toFixed(2));
+    if (diff !== 0)
+        parcelas[0] = Number.parseFloat((parcelas[0] + diff).toFixed(2));
+    return { valorParcela, parcelas };
+}
+
 export function calcularParcelamento(
     valorCompra: number,
     numeroParcelas: number
@@ -26,16 +35,12 @@ export function calcularParcelamento(
         throw new Error("O número de parcelas não pode ser maior que 18");
 
     const fator = obterFatorJuros(numeroParcelas);
-    const valorTotalCompra = valorCompra * fator;
-    const valorParcela = Number.parseFloat((valorTotalCompra / numeroParcelas).toFixed(2));
-    const parcelas = new Array(numeroParcelas).fill(valorParcela) as number[];
-    const diff = Number.parseFloat((valorTotalCompra - valorParcela * numeroParcelas).toFixed(2));
-    if (diff !== 0)
-        parcelas[0] = Number.parseFloat((parcelas[0] + diff).toFixed(2));
+    const valorTotal = valorCompra * fator
+    const { valorParcela, parcelas } = gerarArrayParcelas(valorTotal, numeroParcelas);
     return {
         valorParcela,
         totalParcelas: numeroParcelas,
-        valorTotal: valorTotalCompra,
+        valorTotal,
         parcelas
     }
 }
