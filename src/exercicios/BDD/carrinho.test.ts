@@ -69,9 +69,19 @@ describe("Carrinho", () => {
         expect(() => aplicarCupom(carrinho, cupom)).toThrow("Cupom expirado");
     });
 
-    it("calcularSubtotal com carrinho vazio", () => {
+    it("calcularSubtotal() com carrinho vazio", () => {
         const carrinho: Carrinho = { itens: [] };
         expect(calcularSubtotal(carrinho)).toEqual(0);
-    })
+    });
+
+    it("calcularSubtotal() com 1 item e 1 quantidade", () => {
+        const item: Item = {
+            nome: "Sabão em Pó",
+            precoEmCentavos: 2500,
+            quantidade: 1
+        };
+        const carrinho: Carrinho = { itens: [item] };
+        expect(calcularSubtotal(carrinho)).toEqual(2500);
+    });
 
 });
