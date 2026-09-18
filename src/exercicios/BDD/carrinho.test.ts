@@ -134,4 +134,19 @@ describe("Carrinho", () => {
         expect(calcularDesconto(carrinho)).toEqual(0);
     });
 
+    it("calcularDesconto() carrinho com cupom percentual", () => {
+        const item: Item = {
+            nome: "Sabão em Pó",
+            precoEmCentavos: 2500,
+            quantidade: 1
+        };
+        const cupom: Cupom = {
+            tipo: "percentual",
+            percentual: 1,
+            validoAte: new Date(Date.now())
+        }
+        const carrinho: Carrinho = { itens: [ item ], cupom };
+        expect(calcularDesconto(carrinho)).toEqual(25);
+    });
+
 });
