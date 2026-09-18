@@ -264,4 +264,19 @@ describe("Carrinho", () => {
         expect(calcularTotal(carrinho)).toEqual(21_000);
     });
 
+    it("calcularTotal() com desconto com frete cobrado", () => {
+        const item: Item = {
+            nome: "Sabão em Pó",
+            precoEmCentavos: 22_000,
+            quantidade: 1
+        };
+        const cupom: Cupom = {
+            tipo: "fixo",
+            valorEmCentavos: 3_000,
+            validoAte: new Date(Date.now())
+        }
+        const carrinho: Carrinho = { itens: [item], cupom };
+        expect(calcularTotal(carrinho)).toEqual(20_500);
+    });
+
 });
