@@ -99,6 +99,7 @@ describe('function -> cadastrarCliente', () => {
             cep: '11111221'
         };
 
-       
+        // Act + Assert
+        await expect(cadastrarCliente(cliente)).rejects.toThrow('Não foi possível consultar o CEP agora, tente novamente')
     })
 })
