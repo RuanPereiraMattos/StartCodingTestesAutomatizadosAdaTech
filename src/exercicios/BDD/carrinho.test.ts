@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { adicionarItem, Carrinho, criarCarrinho, Item } from "./carrinho";
+import { adicionarItem, aplicarCupom, Carrinho, criarCarrinho, Cupom, Item } from "./carrinho";
 
 describe("Carrinho", () => {
     
@@ -37,6 +37,21 @@ describe("Carrinho", () => {
             quantidade: -1
         };
         expect(() => adicionarItem(carrinho, item)).toThrow("Quantidade deve ser maior que zero");
+    });
+
+    it("aplicarCupom()", () => {
+        const item: Item = {
+            nome: "Sabão em Pó",
+            precoEmCentavos: 2500,
+            quantidade: 1
+        };
+        const carrinho: Carrinho = { itens: [item] };
+        const cupom: Cupom = { 
+            tipo: 'percentual',
+            percentual: 1,
+            validoAte: new Date(Date.now() + 60 * 60 * 1000)
+        }
+        expect(aplicarCupom(carrinho, cupom)).toEqual({ itens: carrinho.itens, cupom });
     });
 
 });
