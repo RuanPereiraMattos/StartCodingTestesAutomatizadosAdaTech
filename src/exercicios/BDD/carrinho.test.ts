@@ -29,4 +29,14 @@ describe("Carrinho", () => {
         expect(() => adicionarItem(carrinho, item)).toThrow("Quantidade deve ser maior que zero");
     });
 
+    it("adicionarItem() lança erro com quantidade negativa", () => {
+        const carrinho: Carrinho = { itens: [] };
+        const item: Item = {
+            nome: "Sabão em Pó",
+            precoEmCentavos: 2500,
+            quantidade: -1
+        };
+        expect(() => adicionarItem(carrinho, item)).toThrow("Quantidade deve ser maior que zero");
+    });
+
 });
