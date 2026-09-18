@@ -194,4 +194,14 @@ describe("Carrinho", () => {
         expect(calcularFrete(carrinho)).toEqual(1500);
     });
 
+    it("calcularFrete() carrinho subtotal = 20.000 frete gratis", () => {
+        const item: Item = {
+            nome: "Sabão em Pó",
+            precoEmCentavos: 20_000,
+            quantidade: 1
+        };
+        const carrinho: Carrinho = { itens: [item] };
+        expect(calcularFrete(carrinho)).toEqual(0);
+    });
+
 });
