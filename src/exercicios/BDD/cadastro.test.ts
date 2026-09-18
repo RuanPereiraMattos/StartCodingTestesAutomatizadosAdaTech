@@ -1,4 +1,4 @@
-import { cadastrarCliente, NovoCliente } from "./cadastro"
+import { BuscarEndereco, cadastrarCliente, NovoCliente } from "./cadastro"
 
 type EnderecoMock = {
   cep: string
@@ -113,6 +113,17 @@ describe('function -> cadastrarCliente', () => {
         };
         await expect(cadastrarCliente(cliente)).rejects.toThrow("CEP não encontrado");
     });
+    
+    it('deve lançar erro em caso de timeout', async () => {
+        const cliente: NovoCliente = {
+            nome: "Ruan",
+            cep: "12345678"
+        };
+        const buscarEnderecoComErro: BuscarEndereco = async (cep) => {
+            throw new Error('timeout');
+        }
 
+        await expect(cadastrarCliente(cliente, buscarEnderecoComErro)).rejects.toThrow("Não foi possível consultar o CEP agora, tente novamente");
+    });
 
 })
