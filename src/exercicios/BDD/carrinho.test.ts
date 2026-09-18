@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { adicionarItem, aplicarCupom, Carrinho, criarCarrinho, Cupom, Item } from "./carrinho";
+import { adicionarItem, aplicarCupom, calcularSubtotal, Carrinho, criarCarrinho, Cupom, Item } from "./carrinho";
 
 describe("Carrinho", () => {
     
@@ -68,5 +68,10 @@ describe("Carrinho", () => {
         }
         expect(() => aplicarCupom(carrinho, cupom)).toThrow("Cupom expirado");
     });
+
+    it("calcularSubtotal com carrinho vazio", () => {
+        const carrinho: Carrinho = { itens: [] };
+        expect(calcularSubtotal(carrinho)).toEqual(0);
+    })
 
 });
