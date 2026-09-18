@@ -149,4 +149,19 @@ describe("Carrinho", () => {
         expect(calcularDesconto(carrinho)).toEqual(25);
     });
 
+    it("calcularDesconto() carrinho com cupom fixo menor que subtotal", () => {
+        const item: Item = {
+            nome: "Sabão em Pó",
+            precoEmCentavos: 2500,
+            quantidade: 1
+        };
+        const cupom: Cupom = {
+            tipo: "fixo",
+            valorEmCentavos: 500,
+            validoAte: new Date(Date.now())
+        }
+        const carrinho: Carrinho = { itens: [ item ], cupom };
+        expect(calcularDesconto(carrinho)).toEqual(500);
+    });
+
 });
