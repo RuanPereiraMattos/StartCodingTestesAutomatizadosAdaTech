@@ -84,4 +84,14 @@ describe("Carrinho", () => {
         expect(calcularSubtotal(carrinho)).toEqual(2500);
     });
 
+    it("calcularSubtotal() com 1 item e x quantidade", () => {
+        const item: Item = {
+            nome: "Sabão em Pó",
+            precoEmCentavos: 2500,
+            quantidade: 2
+        };
+        const carrinho: Carrinho = { itens: [item] };
+        expect(calcularSubtotal(carrinho)).toEqual(5000);
+    });
+
 });
