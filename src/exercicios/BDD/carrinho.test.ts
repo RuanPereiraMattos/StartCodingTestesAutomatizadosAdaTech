@@ -214,4 +214,19 @@ describe("Carrinho", () => {
         expect(calcularFrete(carrinho)).toEqual(0);
     });
 
+    it("calcularFrete() cupom reduz valor liquido abaixo de 20.000", () => {
+        const item: Item = {
+            nome: "Sabão em Pó",
+            precoEmCentavos: 21_000,
+            quantidade: 1
+        };
+        const cupom: Cupom = {
+            tipo: 'fixo',
+            valorEmCentavos: 2_000,
+            validoAte: new Date(Date.now())
+        }
+        const carrinho: Carrinho = { itens: [item], cupom: cupom };
+        expect(calcularFrete(carrinho)).toEqual(1500);
+    });
+
 });
