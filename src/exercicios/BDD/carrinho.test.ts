@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { adicionarItem, aplicarCupom, calcularDesconto, calcularSubtotal, Carrinho, criarCarrinho, Cupom, Item } from "./carrinho";
+import { adicionarItem, aplicarCupom, calcularDesconto, calcularFrete, calcularSubtotal, Carrinho, criarCarrinho, Cupom, Item } from "./carrinho";
 
 describe("Carrinho", () => {
     
@@ -177,6 +177,11 @@ describe("Carrinho", () => {
         }
         const carrinho: Carrinho = { itens: [ item ], cupom };
         expect(calcularDesconto(carrinho)).toEqual(2500);
+    });
+
+    it("calcularFrete() carrinho vazio frete zero", () => {
+        const carrinho: Carrinho = { itens: [] };
+        expect(calcularFrete(carrinho)).toEqual(0);
     });
 
 });
