@@ -1,4 +1,4 @@
-import { BuscarEndereco, cadastrarCliente, NovoCliente } from "./cadastro"
+import { BuscarEndereco, buscarEnderecoNoViaCep, cadastrarCliente, NovoCliente } from "./cadastro"
 
 type EnderecoMock = {
   cep: string
@@ -113,7 +113,7 @@ describe('function -> cadastrarCliente', () => {
         };
         await expect(cadastrarCliente(cliente)).rejects.toThrow("CEP não encontrado");
     });
-    
+
     it('deve lançar erro em caso de timeout', async () => {
         const cliente: NovoCliente = {
             nome: "Ruan",
@@ -127,3 +127,20 @@ describe('function -> cadastrarCliente', () => {
     });
 
 })
+
+
+describe('Buscar Endereço no Via CEP', () => {
+
+    afterEach(() => {
+        vi.unstubAllGlobals()
+        vi.restoreAllMocks()
+    })
+
+    it("Via CEP responde com status 400", async () => {
+        const responseMock = responseFactory({}, { ok: false, status: 400 })
+        fetchMocked(responseMock)
+
+        await expect(buscarEnderecoNoViaCep("1234567")).rejects.toThrow("ViaCEP respondeu com status 400")
+    });
+
+});
