@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { adicionarItem, aplicarCupom, calcularDesconto, calcularFrete, calcularSubtotal, Carrinho, criarCarrinho, Cupom, Item } from "./carrinho";
+import { adicionarItem, aplicarCupom, calcularDesconto, calcularFrete, calcularSubtotal, calcularTotal, Carrinho, criarCarrinho, Cupom, Item } from "./carrinho";
 
 describe("Carrinho", () => {
     
@@ -227,6 +227,16 @@ describe("Carrinho", () => {
         }
         const carrinho: Carrinho = { itens: [item], cupom: cupom };
         expect(calcularFrete(carrinho)).toEqual(1500);
+    });
+
+    it("calcularTotal() sem desconto com frete gratis", () => {
+        const item: Item = {
+            nome: "Sabão em Pó",
+            precoEmCentavos: 20_000,
+            quantidade: 1
+        };
+        const carrinho: Carrinho = { itens: [item] };
+        expect(calcularTotal(carrinho)).toEqual(20_000);
     });
 
 });
