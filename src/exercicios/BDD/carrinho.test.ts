@@ -19,4 +19,14 @@ describe("Carrinho", () => {
         expect(novoCarrinho).toEqual({ itens: [item] });
     });
 
+    it("adicionarItem() lança erro com quantidade zero", () => {
+        const carrinho: Carrinho = { itens: [] };
+        const item: Item = {
+            nome: "Sabão em Pó",
+            precoEmCentavos: 2500,
+            quantidade: 0
+        };
+        expect(() => adicionarItem(carrinho, item)).toThrow("Quantidade deve ser maior que zero");
+    });
+
 });
