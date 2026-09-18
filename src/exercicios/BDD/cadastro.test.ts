@@ -46,7 +46,6 @@ describe('function -> cadastrarCliente', () => {
         await expect(cadastrarCliente(cliente)).rejects.toThrow("CEP inválido");
     });
 
-
     it('deve retornar endereço valido', async () => {
 
         // Arrange
@@ -100,10 +99,14 @@ describe('function -> cadastrarCliente', () => {
             cep: '11111221'
         };
 
-       
-    })
-
+        // Act + Assert
+        await expect(cadastrarCliente(cliente)).rejects.toThrow('Não foi possível consultar o CEP agora, tente novamente')
+    });
+    
     it('CEP Não Encontrado', async () => {
+        const responseMock = responseFactory({ erro: true })
+        fetchMocked(responseMock)
+
         const cliente: NovoCliente = {
             nome: "Ruan",
             cep: "12345678"
@@ -111,7 +114,7 @@ describe('function -> cadastrarCliente', () => {
         await expect(cadastrarCliente(cliente)).rejects.toThrow("CEP não encontrado");
     });
 
-    it('Não foi possível consultar o CEP agora, tente novamente', async () => {
+    it('deve lançar erro em caso de timeout', async () => {
         const cliente: NovoCliente = {
             nome: "Ruan",
             cep: "12345678"
@@ -123,13 +126,20 @@ describe('function -> cadastrarCliente', () => {
         await expect(cadastrarCliente(cliente, buscarEnderecoComErro)).rejects.toThrow("Não foi possível consultar o CEP agora, tente novamente");
     });
 
-});
+})
+
 
 describe('Buscar Endereço no Via CEP', () => {
 
+    afterEach(() => {
+        vi.unstubAllGlobals()
+        vi.restoreAllMocks()
+    })
+
     it("Via CEP responde com status 400", async () => {
-        //const endereco = await buscarEnderecoNoViaCep("1234567");
-        //console.log({ endereco });
+        const responseMock = responseFactory({}, { ok: false, status: 400 })
+        fetchMocked(responseMock)
+
         await expect(buscarEnderecoNoViaCep("1234567")).rejects.toThrow("ViaCEP respondeu com status 400")
     });
 
