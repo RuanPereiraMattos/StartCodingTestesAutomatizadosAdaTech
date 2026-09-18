@@ -4,6 +4,14 @@ export type ResultadoParcelamento = {
     parcelas?: number[]
     valorTotal?: number
 }
+
+function obterFatorJuros(numeroParcelas: number): number {
+    if (numeroParcelas >= 13) return 1.10;
+    if (numeroParcelas >= 9) return 1.08;
+    if (numeroParcelas >= 5) return 1.05;
+    else return 1.0;
+}
+
 export function calcularParcelamento(
     valorCompra: number,
     numeroParcelas: number
@@ -16,65 +24,18 @@ export function calcularParcelamento(
         throw new Error("O número de parcelas não pode ser menor que 1");
     if (numeroParcelas > 18)
         throw new Error("O número de parcelas não pode ser maior que 18");
-    if (numeroParcelas >= 13 && numeroParcelas <= 18) {
-        const valorTotalCompra = valorCompra  * 1.10;
-        const valorParcela = parseFloat((valorTotalCompra / numeroParcelas).toFixed(2));
-        const parcelas = Array(numeroParcelas).fill(valorParcela) as number[];
-        const diff = parseFloat((valorTotalCompra - valorParcela * numeroParcelas).toFixed(2));
-        if (diff !== 0) {
-            parcelas[0] = parseFloat((parcelas[0] + diff).toFixed(2));
-        }
-        const result: ResultadoParcelamento = {
-            valorParcela,
-            totalParcelas: numeroParcelas,
-            valorTotal: valorTotalCompra,
-            parcelas
-        }
-        return result;
-    }
-    if (numeroParcelas >= 9 && numeroParcelas <= 12){
-        const valorTotalCompra = valorCompra  * 1.08;
-        const valorParcela = parseFloat((valorTotalCompra / numeroParcelas).toFixed(2));
-        const parcelas = Array(numeroParcelas).fill(valorParcela) as number[];
-        const diff = parseFloat((valorTotalCompra - valorParcela * numeroParcelas).toFixed(2));
-        if (diff !== 0) {
-            parcelas[0] = parseFloat((parcelas[0] + diff).toFixed(2));
-        }
-        const result: ResultadoParcelamento = {
-            valorParcela,
-            totalParcelas: numeroParcelas,
-            valorTotal: valorTotalCompra,
-            parcelas
-        }
-        return result;
-    }
-    if (numeroParcelas >= 5 && numeroParcelas <= 8){
-        const valorTotalCompra = valorCompra  * 1.05;
-        const valorParcela = parseFloat((valorTotalCompra / numeroParcelas).toFixed(2));
-        const parcelas = Array(numeroParcelas).fill(valorParcela) as number[];
-        const diff = parseFloat((valorTotalCompra - valorParcela * numeroParcelas).toFixed(2));
-        if (diff !== 0) {
-            parcelas[0] = parseFloat((parcelas[0] + diff).toFixed(2));
-        }
-        const result: ResultadoParcelamento = {
-            valorParcela,
-            totalParcelas: numeroParcelas,
-            valorTotal: valorTotalCompra,
-            parcelas
-        }
-        return result;
-    }
-    const valorParcela = parseFloat((valorCompra / numeroParcelas).toFixed(2));
-    const parcelas = Array(numeroParcelas).fill(valorParcela) as number[];
-    const diff = parseFloat((valorCompra - valorParcela * numeroParcelas).toFixed(2));
-    if (diff !== 0) {
-        parcelas[0] = parseFloat((parcelas[0] + diff).toFixed(2));
-    }
-    const result: ResultadoParcelamento = {
+
+    const fator = obterFatorJuros(numeroParcelas);
+    const valorTotalCompra = valorCompra * fator;
+    const valorParcela = Number.parseFloat((valorTotalCompra / numeroParcelas).toFixed(2));
+    const parcelas = new Array(numeroParcelas).fill(valorParcela) as number[];
+    const diff = Number.parseFloat((valorTotalCompra - valorParcela * numeroParcelas).toFixed(2));
+    if (diff !== 0)
+        parcelas[0] = Number.parseFloat((parcelas[0] + diff).toFixed(2));
+    return {
         valorParcela,
         totalParcelas: numeroParcelas,
-        valorTotal: valorCompra,
+        valorTotal: valorTotalCompra,
         parcelas
     }
-    return result;
 }
