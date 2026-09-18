@@ -101,5 +101,18 @@ describe('function -> cadastrarCliente', () => {
 
         // Act + Assert
         await expect(cadastrarCliente(cliente)).rejects.toThrow('Não foi possível consultar o CEP agora, tente novamente')
-    })
+    });
+    
+    it('CEP Não Encontrado', async () => {
+        const responseMock = responseFactory({ erro: true })
+        fetchMocked(responseMock)
+
+        const cliente: NovoCliente = {
+            nome: "Ruan",
+            cep: "12345678"
+        };
+        await expect(cadastrarCliente(cliente)).rejects.toThrow("CEP não encontrado");
+    });
+
+
 })
