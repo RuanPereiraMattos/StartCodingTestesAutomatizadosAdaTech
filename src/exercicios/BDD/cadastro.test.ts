@@ -38,6 +38,14 @@ describe('function -> cadastrarCliente', () => {
         vi.restoreAllMocks()
     })
 
+    it('CEP Inválido', async () => {
+        const cliente: NovoCliente = {
+            nome: "Ruan",
+            cep: "123456"
+        };
+        await expect(cadastrarCliente(cliente)).rejects.toThrow("CEP inválido");
+    });
+
     it('deve retornar endereço valido', async () => {
 
         // Arrange
@@ -75,7 +83,7 @@ describe('function -> cadastrarCliente', () => {
         })
     })
 
-    it.only('deve retornar erro da API', async () => {
+    it('deve retornar erro da API', async () => {
         //Arrange
          const responseMock = responseFactory({
             cep: '11111-221',
