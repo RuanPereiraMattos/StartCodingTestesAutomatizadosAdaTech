@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { adicionarItem, aplicarCupom, calcularSubtotal, Carrinho, criarCarrinho, Cupom, Item } from "./carrinho";
+import { adicionarItem, aplicarCupom, calcularDesconto, calcularSubtotal, Carrinho, criarCarrinho, Cupom, Item } from "./carrinho";
 
 describe("Carrinho", () => {
     
@@ -122,6 +122,16 @@ describe("Carrinho", () => {
         };
         const carrinho: Carrinho = { itens: [ itemA, itemB ] };
         expect(calcularSubtotal(carrinho)).toEqual(5500);
+    });
+
+    it("calcularDesconto() carrinho sem cupom", () => {
+        const item: Item = {
+            nome: "Sabão em Pó",
+            precoEmCentavos: 2500,
+            quantidade: 1
+        };
+        const carrinho: Carrinho = { itens: [ item ] };
+        expect(calcularDesconto(carrinho)).toEqual(0);
     });
 
 });
