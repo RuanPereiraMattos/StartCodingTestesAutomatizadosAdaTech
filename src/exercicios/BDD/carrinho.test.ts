@@ -54,4 +54,19 @@ describe("Carrinho", () => {
         expect(aplicarCupom(carrinho, cupom)).toEqual({ itens: carrinho.itens, cupom });
     });
 
+    it("aplicarCupom() cupom expirado", () => {
+        const item: Item = {
+            nome: "Sabão em Pó",
+            precoEmCentavos: 2500,
+            quantidade: 1
+        };
+        const carrinho: Carrinho = { itens: [item] };
+        const cupom: Cupom = { 
+            tipo: 'percentual',
+            percentual: 1,
+            validoAte: new Date(Date.now() - 60 * 60 * 1000)
+        }
+        expect(() => aplicarCupom(carrinho, cupom)).toThrow("Cupom expirado");
+    });
+
 });
